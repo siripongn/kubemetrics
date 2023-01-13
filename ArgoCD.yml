@@ -11,4 +11,10 @@ spec:
     path: standard
   destination:
     server: https://kubernetes.default.svc
-    namespace: kubemetrics
+    namespace: kube-system
+  syncPolicy:
+    # syncOption:
+    # - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
