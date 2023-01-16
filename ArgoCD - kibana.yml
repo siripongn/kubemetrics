@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: elasticsearch
+  name: kibana
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: git@github.com:siripongn/kubemetrics.git
     targetRevision: HEAD
-    path: elasticsearch
+    path: kibana
   destination:
     server: https://kubernetes.default.svc
     namespace: default
