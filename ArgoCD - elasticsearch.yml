@@ -11,7 +11,7 @@ spec:
     path: Elasticsearch
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    # namespace: kube-system
   syncPolicy:
     # syncOption:
     # - CreateNamespace=true
