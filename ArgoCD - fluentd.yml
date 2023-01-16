@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fluentd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:siripongn/kubemetrics.git
+    targetRevision: HEAD
+    path: fluentd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    # syncOption:
+    # - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
