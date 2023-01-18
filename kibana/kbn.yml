@@ -33,12 +33,11 @@ kind: Service
 metadata:
   name: kibana-np
 spec:
-  
-  ports:
-    - port: 8080
-      targetPort: 5601 
-      # nodePort: 30000
-  # type: NodePort
   selector:
     app: kibana
+  ports:
+    - port: 5601
+      targetPort: 5601
+      # nodePort: 30000
+  # type: NodePort
   type: LoadBalancer
