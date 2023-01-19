@@ -15,6 +15,9 @@ spec:
     spec:
       serviceAccount: fluentd
       serviceAccountName: fluentd
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
       containers:
       - name: fluentd
         image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
@@ -23,10 +26,10 @@ spec:
             value: "elasticsearch.default.svc.cluster.local"
           - name:  FLUENT_ELASTICSEARCH_PORT
             value: "9200"
-          - name: FLUENT_ELASTICSEARCH_SCHEME
-            value: "http"
-          - name: FLUENTD_SYSTEMD_CONF
-            value: disable
+          # - name: FLUENT_ELASTICSEARCH_SCHEME
+          #   value: "http"
+          # - name: FLUENTD_SYSTEMD_CONF
+          #   value: disable
         resources:
           limits:
             memory: 512Mi
