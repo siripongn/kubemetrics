@@ -40,11 +40,12 @@ spec:
           mountPath: /var/lib/docker/containers
           readOnly: true
         - name: fluentd-config
-          mountPath: /fluentd/etc/disable.conf
-                     /fluentd/etc/fluent.conf
-                     /fluentd/etc/kubernetes.conf
-                     /fluentd/etc/prometheus.conf
-                     /fluentd/etc/systemd.conf
+          mountPath: /fluentd/etc
+          # mountPath: /fluentd/etc/disable.conf
+                    #  /fluentd/etc/fluent.conf
+                    #  /fluentd/etc/kubernetes.conf
+                    #  /fluentd/etc/prometheus.conf
+                    #  /fluentd/etc/systemd.conf
           subPath: disable.conf
                    fluent.conf
                    kubernetes.conf
