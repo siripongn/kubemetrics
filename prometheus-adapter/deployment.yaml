@@ -39,20 +39,20 @@ spec:
           failureThreshold: 5
           httpGet:
             path: /livez
-            port: http
-            scheme: HTTP
+            port: https
+            scheme: HTTPS
           initialDelaySeconds: 30
           periodSeconds: 5
         name: prometheus-adapter
         ports:
         - containerPort: 6443
-          name: http
+          name: https
         readinessProbe:
           failureThreshold: 5
           httpGet:
             path: /readyz
-            port: http
-            scheme: HTTP
+            port: https
+            scheme: HTTPS
           initialDelaySeconds: 30
           periodSeconds: 5
         resources:
