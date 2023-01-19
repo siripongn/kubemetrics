@@ -31,8 +31,8 @@ spec:
           limits:
             memory: 512Mi
           requests:
-            cpu: 100m
-            memory: 200Mi
+            cpu: 200m
+            memory: 400Mi
         volumeMounts:
         - name: varlog
           mountPath: /var/log
@@ -52,6 +52,17 @@ spec:
       - name: fluentd-config
         configMap:
           name: fluentd-config
+          items:
+            - key: disable.conf
+              path: disable.conf
+            - key: fluent.conf
+              path: fluent.conf
+            - key: kubernetes.conf
+              path: kubernetes.conf
+            - key: prometheus.conf
+              path: prometheus.conf
+            - key: systemd.conf
+              path: systemd.conf
       serviceAccountName: fluentd
       tolerations:
       - key: node-role.kubernetes.io/master
