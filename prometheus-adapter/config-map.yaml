@@ -1,6 +1,7 @@
 apiVersion: v1
 data:
   config.yaml: |-
+  
     rules:
     - seriesQuery: '{__name__=~"^http_.*_count",kubernetes_namespace!="",kubernetes_pod_name!=""}'
       resources:
