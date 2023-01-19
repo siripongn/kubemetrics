@@ -38,7 +38,7 @@ spec:
           mountPath: /var/log
         - name: varlibdockercontainers
           mountPath: /var/lib/docker/containers
-          readOnly: true
+          # readOnly: true
         - name: fluentd-config
           mountPath: /fluentd/etc/
       terminationGracePeriodSeconds: 30
@@ -53,16 +53,16 @@ spec:
         configMap:
           name: fluentd-config
           items:
-            - key: disable.conf
-              path: disable.conf
-            - key: fluent.conf
-              path: fluent.conf
-            - key: kubernetes.conf
-              path: kubernetes.conf
-            - key: prometheus.conf
-              path: prometheus.conf
-            - key: systemd.conf
-              path: systemd.conf
+          - key: disable.conf
+            path: disable.conf
+          - key: fluent.conf
+            path: fluent.conf
+          - key: kubernetes.conf
+            path: kubernetes.conf
+          - key: prometheus.conf
+            path: prometheus.conf
+          - key: systemd.conf
+            path: systemd.conf
       serviceAccountName: fluentd
       tolerations:
       - key: node-role.kubernetes.io/master
