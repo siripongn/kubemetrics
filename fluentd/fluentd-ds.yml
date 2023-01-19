@@ -60,7 +60,7 @@ spec:
           path: /var/lib/docker/containers
       - name: fluentd-config
         configMap:
-          # name: fluentd-config
+          name: fluentd-config
           # items:
           # - key: disable.conf
           #   path: disable.conf
