@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: fluentd
-  labels:
-    app: fluentd
+  name: fluentd-config
 data:
   disable.conf: |
 
