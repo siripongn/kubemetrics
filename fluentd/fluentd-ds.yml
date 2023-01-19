@@ -13,8 +13,8 @@ spec:
       labels:
         app: fluentd
     spec:
-      # serviceAccount: fluentd
-      # serviceAccountName: fluentd
+      serviceAccount: fluentd
+      serviceAccountName: fluentd
       containers:
       - name: fluentd
         image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
@@ -23,10 +23,10 @@ spec:
             value: "elasticsearch.default.svc.cluster.local"
           - name:  FLUENT_ELASTICSEARCH_PORT
             value: "9200"
-          # - name: FLUENT_ELASTICSEARCH_SCHEME
-          #   value: "http"
-          # - name: FLUENTD_SYSTEMD_CONF
-          #   value: disable
+          - name: FLUENT_ELASTICSEARCH_SCHEME
+            value: "http"
+          - name: FLUENTD_SYSTEMD_CONF
+            value: disable
         resources:
           limits:
             memory: 512Mi
@@ -38,9 +38,14 @@ spec:
           mountPath: /var/log
         - name: varlibdockercontainers
           mountPath: /var/lib/docker/containers
-          # readOnly: true
+          readOnly: true
         - name: fluentd-config
-          mountPath: /fluentd/etc/
+          mountPath: /fluentd/etc
+          subPath: disable.conf
+                   fluent.conf
+                   kubernetes.conf
+                   prometheus.conf
+                   systemd.conf
       terminationGracePeriodSeconds: 30
       volumes:
       - name: varlog
@@ -52,23 +57,23 @@ spec:
       - name: fluentd-config
         configMap:
           name: fluentd-config
-          items:
-          - key: disable.conf
-            path: disable.conf
-          - key: fluent.conf
-            path: fluent.conf
-          - key: kubernetes.conf
-            path: kubernetes.conf
-          - key: prometheus.conf
-            path: prometheus.conf
-          - key: systemd.conf
-            path: systemd.conf
-      serviceAccountName: fluentd
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Exists
-        effect: NoSchedule
-      - operator: "Exists"
-        effect: "NoExecute"
-      - operator: "Exists"
-        effect: "NoSchedule"
+          # items:
+          # - key: disable.conf
+          #   path: disable.conf
+          # - key: fluent.conf
+          #   path: fluent.conf
+          # - key: kubernetes.conf
+          #   path: kubernetes.conf
+          # - key: prometheus.conf
+          #   path: prometheus.conf
+          # - key: systemd.conf
+          #   path: systemd.conf
+      # serviceAccountName: fluentd
+      # tolerations:
+      # - key: node-role.kubernetes.io/master
+      #   operator: Exists
+      #   effect: NoSchedule
+      # - operator: "Exists"
+      #   effect: "NoExecute"
+      # - operator: "Exists"
+      #   effect: "NoSchedule"
