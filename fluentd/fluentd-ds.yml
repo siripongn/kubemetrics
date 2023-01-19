@@ -17,7 +17,12 @@ spec:
       serviceAccountName: fluentd
       tolerations:
       - key: node-role.kubernetes.io/master
+        operator: Exists
         effect: NoSchedule
+      - operator: "Exists"
+        effect: "NoExecute"
+      - operator: "Exists"
+        effect: "NoSchedule"
       containers:
       - name: fluentd
         image: fluent/fluentd-kubernetes-daemonset:v1.4.2-debian-elasticsearch-1.1
@@ -43,7 +48,7 @@ spec:
           mountPath: /var/lib/docker/containers
           readOnly: true
         - name: fluentd-config
-          mountPath: /fluentd/etc
+          mountPath: /fluentd/etc/
       terminationGracePeriodSeconds: 30
       volumes:
       - name: fluentd-config
