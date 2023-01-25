@@ -21,3 +21,5 @@ nodes:
 # kind create cluster --name monitoring --image kindest/node:v1.26.0 --config kind.yml
 # kind get clusters
 # kubectl cluster-info --context kind-[cluster-name]
+
+# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
