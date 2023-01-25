@@ -15,10 +15,9 @@ nodes:
   # - containerPort: 443
   #   hostPort: 44300
   #   protocol: TCP
-
-
 - role: worker
 - role: worker
+
 # kind create cluster --name monitoring --image kindest/node:v1.26.0 --config kind.yml
 # kind get clusters
 # kubectl cluster-info --context kind-[cluster-name]
