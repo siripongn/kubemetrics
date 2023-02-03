@@ -1,0 +1,109 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: custom-view-only-role
+  namespace: production
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - endpoints
+  - persistentvolumeclaims
+  - pods
+  - replicationcontrollers
+  - replicationcontrollers/scale
+  - serviceaccounts
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - bindings
+  - events
+  - limitranges
+  - namespaces/status
+  - pods/log
+  - pods/status
+  - replicationcontrollers/status
+  - resourcequotas
+  - resourcequotas/status
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - replicasets
+  - replicasets/scale
+  - statefulsets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - ingresses
+  - networkpolicies
+  - replicasets
+  - replicasets/scale
+  - replicationcontrollers/scale
+  verbs:
+  - get
+  - list
+  - watch
+  
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: custom-view-only-rolebinding
+  namespace: production
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: custom-view-only-role
+subjects:
+- kind: ServiceAccount
+  name: viewer
+  namespace: default
+
+
+
+# kubectl get secret $sa_name -n default -o "jsonpath={.data['ca\.crt']}"
+# CA_CERT=$(kubectl get secret $sa_name -n default -o "jsonpath={.data['ca\.crt']}")
+# echo $CA_CERT
+
+# kubectl describe sa viewer -n default | grep "Tokens:" | awk 'BEGIN { FS = " " } ; { print $2 }'
+# kubectl get secret $sa_name -n default -o "jsonpath={.data.token}" | base64 -d
+# sa_name=$(kubectl describe sa viewer -n default | grep "Tokens:" | awk 'BEGIN { FS = " " } ; { print $2 }')
+# SECRET_TOKEN=$(kubectl get secret $sa_name -n default -o "jsonpath={.data.token}" | base64 -d)
+# echo $SECRET_TOKEN
